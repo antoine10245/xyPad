@@ -1,8 +1,11 @@
+//Events here are dispatched in two places, main.js and sequencer.js.
+import eventBus from "./eventBus.js";
 export class XYPad {
 
     constructor(element, callback) {
         this.element = element;
         this.callback = callback;
+        this.isPlaying = false
 
         this.dot = document.createElementNS("http://www.w3.org/2000/svg", "circle");
         this.element.appendChild(this.dot);
@@ -11,20 +14,31 @@ export class XYPad {
         element.addEventListener("mousedown", (e) => {
             let [xPct, yPct] = this.getPositionInPercentages(e);
             this.updateDot(xPct, yPct, 0.5);
-            this.callback({type: "down", xPct, yPct});
+            eventBus.dispatch("down", { type: "down", xPct, yPct });
+
         });
 
         element.addEventListener("mousemove", (e) => {
+            if (this.isPlaying) return
             let [xPct, yPct] = this.getPositionInPercentages(e);
             this.updateDot(xPct, yPct);
-            this.callback({type: "move", xPct, yPct});
+            eventBus.dispatch("move", { type: "move", xPct, yPct });
         });
 
         element.addEventListener("mouseup", (e) => {
             let [xPct, yPct] = this.getPositionInPercentages(e);
             this.updateDot(xPct, yPct, 0.1);
-            this.callback({type: "up", xPct, yPct});
+            eventBus.dispatch("up", { type: "up", xPct, yPct });
         });
+
+        // force stopping playback in case the cursor is ourside the Pad's area.
+        document.addEventListener("mouseup", (e) => {
+            eventBus.dispatch("up", { type: "up" });
+        });
+
+        eventBus.on("move", (e) => {
+            this.updateDot(e.xPct, e.yPct);
+        })
     }
 
     getPositionInPercentages(e) {
