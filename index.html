@@ -1,70 +1,50 @@
 <html>
-    <head>
-        <title>XY Sample Player</title>
-        <link rel="stylesheet" href="styles.css">
-        <script type="module" src="main.js"></script>
-    </head>
-    <body>
-        <h1>XY Sample Player</h1>
-        <h2>Learning Team | Software Engineer Test</h2>
-        <p>
-            This page allows a musician to play back an audio sample using a simple <i>xy-pad</i> control.
-            The two-dimensional nature of this interface allows for playful interaction with many aspects of the generated sound.
-        </p>
 
-        <p>
-            While the pad is pressed, the sample should play back in a continuous loop. The sample should stop
-            playing when the pad is released.
-        </p>
+<head>
+    <title>XY Sample Player</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@2.31.0/dist/full.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.48/Tone.min.js"></script>
+    <script type="module" src="main.js"></script>
 
-        <p>
-            Moving your pointer up and down changes the playback rate of the sample. Moving your pointer left
-            and right changes the <i>cutoff frequency</i> of a filter that's being applied
-            to the sound.
-        </p>
+</head>
 
-        <p>
-            Give it a try by pressing and dragging in the gray square below:
-        </p>
-        <section class="two_row">
-            <svg class="xy_pad" id="xy_pad">
-                <circle cx="50%" cy="50%" r="3" opacity="0.5"></circle>
-            </svg>
-            <div class="sample_display">
-                <div id="loading_indicator">Loading Sample...</div>
-            </div>
-        </section>
+<body>
+    <div class="flex items-center justify-center ">
+        <div>
+            <h1 class="text-6xl mt-24 mb-12">Record and play </br>your own samples.</h1>
+            <p class="text-2xl mb-12">This section allows you to record and play you own samples.</p>
+            <p class="mb-6"> - Every time you play with the pad, your movements are recorded and can be played again
+                using the "play" button.</p>
+            <p> - You can also reccord your own sample using your microphone and play with it. Click on the "mic" button
+                to start recording.</p>
+            <section class="two_row mt-24 mb-56">
+                <svg id="xy_pad">
+                    <circle cx="50%" cy="50%" r="3" opacity="0.5"></circle>
+                </svg>
 
-        <hr/>
+                <button id="start" class="btn btn-square btn-warning btn-disabled">
+                    play
+                </button>
 
-        <h2>Your task</h2>
+                <button id="stop" style="display: none;" class="btn btn-square btn-success">
+                    stop
+                </button>
 
-        <p>
-            Spend no more than three hours making improvements to this page.
-            When you've reached the time limit, zip up the entire project folder and send it back to us.
-        </p>
+                <button style="float: right;" class="record-mic btn btn-circle btn-error">
+                    mic
+                </button>
 
-        <p>
-            We're open to any changes you decide to make. Feel free to add files and adjust anything that's here.
-            You might choose to identify and fix bugs, make general code improvements, write documentation,
-            improve performance, introduce entirely new features, or do something else we haven't anticipated!
-            Please provide a brief rationale for your changes in code comments, or right here in the
-            markup for the page.
-        </p>
+                <button style="float: right; display: none;" class="stop-mic-record btn btn-square btn-success">
+                    stop
+                </button>
+            </section>
 
-        <p>
-            Please note that there are no "gotchas" or "correct" answers. Rather, we're
-            hoping to get a general feel for how you might respond and contribute to
-            preliminary work from another colleague.
-        </p>
 
-        <p>
-            We should be able to run your submission on a local web server without needing to invoke any
-            installation or build commands. For example, we should be able to evaluate your submission
-            without needing to run npm install (or similar) commands. You should feel free to use
-            third-party libraries. If you include a git repository with your submission, we will take a
-            look at your commit history.
-        </p>
+        </div>
+    </div>
+</body>
 
-    </body>
+
 </html>
